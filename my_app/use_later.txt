@@ -1,0 +1,15 @@
+{% block content %}
+    <form method="POST">
+        <label for="pictureName">Picture Name</label>
+        <input name="pictureName" id="pictureName" required>
+        <label for="bucket">Bucket Name</label>
+        <input name="bucket" id="bucket" required>
+        <input type="submit" value="Enter">
+    </form>
+    <button onclick="listAlbums()">View your Albums</button>
+    <label for="picturePath">Select a File</label>
+    <input type="file" name="picturePath" id="photoupload" required>
+    <button onclick="addPhoto('text_album')">Add to Bucket</button>
+    <div id="msg"></div>
+    <div id="app"></div>
+{% endblock %}

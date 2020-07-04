@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>{% block head %}{% endblock %}</head>
+</html>
+<title>{% block title %}{% endblock %}</title> <!-- block title changes the title displayed in the tab -->
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+    <h1>Text Recognition</h1>
+    <ul>
+        {% if g.user %}
+            <li><span>{{ g.user['username'] }}</span></li>
+            <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+        {% else %}
+            <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+            <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+        {% endif %}
+    </ul>
+</nav>
+<body>
+    <section class="content">
+        <header>
+            {% block header %}{% endblock %} <!-- block header changes the title displayed on the page -->
+        </header>
+        {% for message in get_flashed_messages() %}
+            <div class="flash">{{ message }}</div> <!-- display error messages shown by flash() in the views -->
+        {% endfor %}
+        {% block content %}{% endblock %} <!-- block content is where the contect of each page goes -->
+    </section>
+
+    {% block scripts %}{% endblock %}
+</body>
+<!-- templates for a blueprint will be placed in a directory with the same name as the blueprint -->

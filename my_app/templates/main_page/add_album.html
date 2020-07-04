@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block head %}
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script> 
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.699.0.min.js"></script>
+    <script src="{{ url_for('static', filename='script/index.js') }}"></script>
+{% endblock %}
+
+{% block header %}
+    <h1>{% block title %}Add an Album to your Bucket{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div id="bucketName">{{bucketName}}</div> 
+    <div id="region">{{region}}</div>
+    <label for="albumName">Enter Album Name</label>
+    <input type="text" name="albumName" id="albumName" required></input>
+    <button onclick="createAlbum()">Add Album</button>
+    <button onclick="listAlbums()">List All Albums</button>
+    <div id="view_album"></div>
+    <div id="list_albums"></div>
+
+    <div>Enter a photo's name for text detection</div>
+    <form method="POST">
+        <input type="text" name="photoName" id="photoName" required>
+        <input type="submit" value="Choose">
+    </form> 
+{% endblock %}

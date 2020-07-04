@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Add New Bucket{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        <label for="bucketName">Bucket Name</label>
+        <input name="bucketName" id="bucketName" required>
+        <label for="region">Enter Bucket Region</label>
+        <input name="region" id="region" required>
+        <input type="submit" value="Enter">
+    </form>
+{% endblock %}

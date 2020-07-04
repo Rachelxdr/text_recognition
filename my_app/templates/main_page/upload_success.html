@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block head %}
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.699.0.min.js"></script>
+
+<script>
+    function getHtml(template) {
+       return template.join('\n');
+    }
+    // listAlbums();
+ </script>
+
+<script type="text/javascript">
+// Configures the SDK and creates an AWS s3 ervice object
+var albumBucketName = "text20"; // TODO: change to user input
+var bucketRegion = "us-west-2"; //TODO: change to user input
+var IdentityPoolId = "us-west-2:c4b428fa-ea5b-4a7b-96dc-afc829cc8d24"; //TODO: change to  user input
+
+AWS.config.update({
+  region: bucketRegion,
+  credentials: new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: IdentityPoolId
+  })
+});
+
+var s3 = new AWS.S3({
+  apiVersion: "2006-03-01",
+  params: { Bucket: albumBucketName }
+});
+</script>
+<script src="{{ url_for('static', filename='script/index.js') }}"></script>
+<!-- <script src="{{ url_for('static', filename='script/config.js') }}"></script> -->
+
+{% endblock %}
+
+{% block header %}
+    <h1>{% block title %}Upload Success{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <button onclick="listAlbums()">View your Albums</button>
+    <label for="picturePath">Select a File</label>
+    <input type="file" name="picturePath" id="photoupload" required>
+    <button onclick="addPhoto('text_album')">Add to Bucket</button>
+    <div id="msg"></div>
+    <div id="app"></div>
+{% endblock %}
