@@ -27,10 +27,15 @@
 
 // snippet-start:[s3.JavaScript.photoAlbumExample.complete]
 // snippet-start:[s3.JavaScript.photoAlbumExample.config]
-function setupName(){
-  var albumBucketName = document.getElementById("bucketName").textContent; // TODO: change to user input
-  var bucketRegion = document.getElementById("region").textContent; //TODO: change to user input
-  var IdentityPoolId = "us-west-2:c4b428fa-ea5b-4a7b-96dc-afc829cc8d24"; //TODO: change to  user input
+// var albumBucketName = "text20";
+var albumBucketName_html = document.getElementById("bucketName");
+var bucketRegion_html = document.getElementById("region");
+// var IdentityPoolId_html;
+
+// function setupName(albumBucketName, bucketRegion, IdentityPoolId){
+  albumBucketName = albumBucketName_html.textContent; // TODO: change to user input
+  bucketRegion = bucketRegion_html.textContent; //TODO: change to user input
+  IdentityPoolId = "us-west-2:c4b428fa-ea5b-4a7b-96dc-afc829cc8d24"; //TODO: change to  user input
   var album_name = document.getElementById('albumName');
 
 // }
@@ -49,8 +54,8 @@ function setupName(){
     params: { Bucket: albumBucketName }
   });
 
-  return s3;
-}
+  // return s3;
+// }
 
 //getHtml helper function
 function getHtml(template) {
@@ -61,7 +66,7 @@ function getHtml(template) {
 
 // snippet-start:[s3.JavaScript.photoAlbumExample.listAlbums]
 function listAlbums() {
-  var s3 = setupName();
+  // var s3 = setupName(albumBucketName, bucketRegion, IdentityPoolId);
   s3.listObjects({ Delimiter: "/" }, function(err, data) {
     if (err) {
       return alert("There was an error listing your albums: " + err.message);
@@ -102,7 +107,7 @@ function listAlbums() {
 
 // snippet-start:[s3.JavaScript.photoAlbumExample.createAlbum]
 function createAlbum() {
-  var s3 = setupName();
+  // var s3 = setupName(albumBucketName, bucketRegion, IdentityPoolId);
   var albumName = document.getElementById('albumName').value;
   console.log("album name is: ", albumName);
   albumName = albumName.trim();
@@ -133,6 +138,7 @@ function createAlbum() {
 
 // snippet-start:[s3.JavaScript.photoAlbumExample.viewAlbum]
 function viewAlbum(albumName) {
+  // var s3 = setupName(albumBucketName, bucketRegion, IdentityPoolId);
   var albumPhotosKey = encodeURIComponent(albumName) + "//";
   console.log("key: ", albumPhotosKey);
   s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
@@ -197,6 +203,7 @@ function viewAlbum(albumName) {
 
 // snippet-start:[s3.JavaScript.photoAlbumExample.addPhoto]
 function addPhoto(albumName) {
+  // var s3 = setupName(albumBucketName, bucketRegion, IdentityPoolId);
   var files = document.getElementById("photoupload").files;
   if (!files.length) {
     return alert("Please choose a file to upload first.");
@@ -207,6 +214,7 @@ function addPhoto(albumName) {
   
   var photoKey = albumPhotosKey + fileName;
   console.log("photoKey: ", photoKey);
+  console.log("albumBucketName: ", albumBucketName);
   // Use S3 ManagedUpload class as it supports multipart uploads
   var upload = new AWS.S3.ManagedUpload({
     params: {
@@ -224,6 +232,7 @@ function addPhoto(albumName) {
       viewAlbum(albumName);
     },
     function(err) {
+      console.log(err.message)
       return alert("There was an error uploading your photo: ", err.message);
     }
   );
@@ -232,6 +241,7 @@ function addPhoto(albumName) {
 
 // snippet-start:[s3.JavaScript.photoAlbumExample.deletePhoto]
 function deletePhoto(albumName, photoKey) {
+  // s3 = setupName(albumBucketName, bucketRegion, IdentityPoolId);
   s3.deleteObject({ Key: photoKey }, function(err, data) {
     if (err) {
       return alert("There was an error deleting your photo: ", err.message);
@@ -244,6 +254,7 @@ function deletePhoto(albumName, photoKey) {
 
 // snippet-start:[s3.JavaScript.photoAlbumExample.deleteAlbum]
 function deleteAlbum(albumName) {
+  // s3=setupName(albumBucketName, bucketRegion, IdentityPoolId);
   var albumKey = encodeURIComponent(albumName) + "/";
   s3.listObjects({ Prefix: albumKey }, function(err, data) {
     if (err) {

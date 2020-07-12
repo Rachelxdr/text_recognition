@@ -8,7 +8,10 @@ def detect_text(photo, bucket):
     print("bucket name: ", bucket)
     client=boto3.client('rekognition')
 
-    response=client.detect_text(Image={'S3Object':{'Bucket':bucket,'Name':photo}})
+    hardCoded_bucket = "text20"
+    hardCoded_photo = "text_album//test.png"
+
+    response=client.detect_text(Image={'S3Object':{'Bucket':hardCoded_bucket,'Name':hardCoded_photo}})
                         
     textDetections=response['TextDetections']
     print ('Detected text\n----------')

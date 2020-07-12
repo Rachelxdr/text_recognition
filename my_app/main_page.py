@@ -4,7 +4,7 @@ from flask import (
 
 from my_app.db import get_db
 from my_app.auth import login_required
-from my_app.aws_script.s3 import create_bucket
+from my_app.aws_script.s3 import new_bucket
 from my_app.aws_script.detect_text import detect_text
 bp = Blueprint('main_page', __name__)
 
@@ -62,7 +62,7 @@ def add_bucket():
             )
             db.commit()
             
-        create_result = create_bucket(information['bucketName'], information['region'])
+        create_result = new_bucket(information['bucketName'], information['region'])
         if create_result == "success":
             flash("Bucket Created!")
             return redirect(url_for('main_page.add_album', bucketName=information['bucketName'], region=information['region']))
