@@ -78,6 +78,7 @@ def add_album():
     bucketName=request.args['bucketName']
     region=request.args['region']
     if request.method == 'POST':
+        album = request.form['album']
         photoName = request.form['photoName']
         error = None
 
@@ -87,6 +88,7 @@ def add_album():
         if error is not None:
             flash(error)
         else:
-            detect_text(photoName, bucketName)
+            path = album + "//" + photoName
+            detect_text(path, bucketName)
 
     return render_template('main_page/add_album.html', bucketName=bucketName, region=region)

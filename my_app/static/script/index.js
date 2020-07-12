@@ -28,13 +28,15 @@
 // snippet-start:[s3.JavaScript.photoAlbumExample.complete]
 // snippet-start:[s3.JavaScript.photoAlbumExample.config]
 // var albumBucketName = "text20";
-var albumBucketName_html = document.getElementById("bucketName");
-var bucketRegion_html = document.getElementById("region");
-// var IdentityPoolId_html;
 
+var albumBucketName;
+var bucketRegion;
+var s3;
+// var IdentityPoolId_html;
+$(document).ready(function(){
 // function setupName(albumBucketName, bucketRegion, IdentityPoolId){
-  albumBucketName = albumBucketName_html.textContent; // TODO: change to user input
-  bucketRegion = bucketRegion_html.textContent; //TODO: change to user input
+  albumBucketName = document.getElementById("bucketName").textContent; // TODO: change to user input
+  bucketRegion = document.getElementById("region").textContent; //TODO: change to user input
   IdentityPoolId = "us-west-2:c4b428fa-ea5b-4a7b-96dc-afc829cc8d24"; //TODO: change to  user input
   var album_name = document.getElementById('albumName');
 
@@ -49,11 +51,11 @@ var bucketRegion_html = document.getElementById("region");
     })
   });
 
-  var s3 = new AWS.S3({
+  s3 = new AWS.S3({
     apiVersion: "2006-03-01",
     params: { Bucket: albumBucketName }
   });
-
+});
   // return s3;
 // }
 

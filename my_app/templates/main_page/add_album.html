@@ -19,9 +19,13 @@
     <div id="view_album"></div>
     <div id="list_albums"></div>
 
-    <div>Enter a photo's name for text detection</div>
+    
+    <div>Select a photo for text detection</div>
     <form method="POST">
+        <label for="album">Choose an Album</label>
+        <input type="text" name="album" id="album" required>
+        <label for="album">Choose a Photo</label>
         <input type="text" name="photoName" id="photoName" required>
-        <input type="submit" value="Choose">
+        <input type="submit" value="Select">
     </form> 
 {% endblock %}
