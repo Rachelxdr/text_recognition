@@ -13,12 +13,16 @@ def detect_text(photo, bucket):
 
     print("hardCoded_bucket",hardCoded_bucket)
     print("hardCoded_photo", hardCoded_photo)
-    # response=client.detect_text(Image={'S3Object':{'Bucket':bucket,'Name':photo}})
-    response=client.detect_text(Image={'S3Object':{'Bucket':hardCoded_bucket,'Name':hardCoded_photo}})
+    response=client.detect_text(Image={'S3Object':{'Bucket':bucket,'Name':photo}})
+    # response=client.detect_text(Image={'S3Object':{'Bucket':hardCoded_bucket,'Name':hardCoded_photo}})
                         
     textDetections=response['TextDetections']
+    result = ""
     print ('Detected text\n----------')
     for text in textDetections:
+            if text['Type'] == 'LINE':
+                result = result + text['DetectedText'] + "\n"
+
             print ('Detected text:' + text['DetectedText'])
             print ('Confidence: ' + "{:.2f}".format(text['Confidence']) + "%")
             print ('Id: {}'.format(text['Id']))
@@ -26,14 +30,16 @@ def detect_text(photo, bucket):
                 print ('Parent Id: {}'.format(text['ParentId']))
             print ('Type:' + text['Type'])
             print()
-    return len(textDetections)
+        
+    print("result is: ",result)
+    return result
 
-def main():
+# def main():
 
-    bucket='text20'
-    photo='/text_album//test.png'
-    text_count=detect_text(photo,bucket)
-    print("Text detected: " + str(text_count))
+#     bucket='text20'
+#     photo='/text_album//test.png'
+#     text_count=detect_text(photo,bucket)
+#     print("Text detected: " + str(text_count))
 
 
 if __name__ == "__main__":

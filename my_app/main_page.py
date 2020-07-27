@@ -89,6 +89,7 @@ def add_album():
             flash(error)
         else:
             path = album + "//" + photoName
-            detect_text(path, bucketName)
+            detect_result = detect_text(path, bucketName)
+            return render_template('main_page/detect_result.html', detect_result = detect_result)
 
     return render_template('main_page/add_album.html', bucketName=bucketName, region=region)

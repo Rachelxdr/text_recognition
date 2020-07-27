@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block head %}
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script> 
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.699.0.min.js"></script>
+    <script src="{{ url_for('static', filename='script/index.js') }}"></script>
+{% endblock %}
+
+{% block header %}
+    <h1>{% block title %}Detection Result{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div>{{detect_result}}</div>
+{% endblock %}
